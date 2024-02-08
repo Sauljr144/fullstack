@@ -40,7 +40,7 @@ export class StudentFormComponent implements OnInit, OnDestroy{
         name:["", Validators.required],
         address:[],
         phoneNumber:[],
-        email:["", Validators.required]
+        email:["", Validators.email]
     });
 
   }
