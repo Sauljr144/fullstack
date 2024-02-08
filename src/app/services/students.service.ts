@@ -8,7 +8,10 @@ import { Student } from '../types/students';
 })
 export class StudentsService {
 
+  apiUrl = 'http://localhost:5190/api/students';
+
   constructor(private http: HttpClient) { }
 
-  getStudents = () : Observable<Student[]> => this.http.get<Student[]>('http://localhost:5190/api/students')
+  getStudents = () : Observable<Student[]> => this.http.get<Student[]>(this.apiUrl);
+  addStudent = (data: Student) => this.http.post(this.apiUrl, data);
 }
