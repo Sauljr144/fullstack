@@ -5,4 +5,6 @@ import { StudentFormComponent } from './students/student-form/student-form.compo
 export const routes: Routes = [
     { path:'students', component: StudentsComponent },
     { path:'students/:id', component: StudentFormComponent },
+    { path:'students/form', component: StudentFormComponent },
+
 ];

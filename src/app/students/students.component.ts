@@ -4,6 +4,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Student } from '../types/students';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-students',
@@ -14,13 +15,13 @@ import { RouterLink } from '@angular/router';
 })
 export class StudentsComponent implements OnInit{
 
-  constructor(private studentsService: StudentsService) {}
+  constructor(private studentsService: StudentsService, private toasterService: ToastrService) {}
 
   students$! : Observable<Student[]>;
 
   ngOnInit(): void {
 
-    this.students$ = this.studentsService.getStudents();
+    this.getStudents();
     console.log(this.students$.forEach(student => console.log(student)));
     
     // this.studentsService.getStudents().subscribe({
@@ -32,6 +33,22 @@ export class StudentsComponent implements OnInit{
     //     console.log(error);
     //   }
     // });
+  }
+
+  private getStudents(): void {
+    this.students$= this.studentsService.getStudents();
+  }
+
+  delete(id:number) {
+    this.studentsService.deleteStudent(id).subscribe({
+      next: (response) => {
+        this.toasterService.success("Student deleted successfully");
+        this.getStudents();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
 }
